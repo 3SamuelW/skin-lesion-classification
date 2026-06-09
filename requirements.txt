@@ -1,0 +1,17 @@
+# Core scientific stack
+numpy<2
+pandas
+scipy
+scikit-learn
+scikit-image
+Pillow
+PyYAML
+joblib
+tqdm
+matplotlib
+seaborn
+
+# Deep learning (timm baseline)
+torch
+torchvision
+timm

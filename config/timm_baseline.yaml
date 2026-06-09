@@ -1,0 +1,60 @@
+# timm deep-learning baseline config
+#
+# The data paths below are defaults and can be overridden at runtime via
+# --data_root <your_dataset_dir>  (e.g. --data_root /path/to/my_dataset)
+# That will automatically resolve to:
+#   image_dir = <data_root>/image
+#   mask_dir  = <data_root>/mask
+#   label_csv = <data_root>/label.csv
+#
+# Single-model training:
+#   python src/train_timm.py --config config/timm_baseline.yaml --experiment_id exp001 --data_root /path/to/dataset
+#
+# Batch training (4 models):
+#   python src/train_timm_suite.py --config config/timm_baseline.yaml --experiment_id suite001 --data_root /path/to/dataset
+#
+# Run a subset of models:
+#   python src/train_timm_suite.py --config config/timm_baseline.yaml --experiment_id suite001 \
+#       --models efficientnet_b0 vit_base_patch16_224 --data_root /path/to/dataset
+#
+# Predict:
+#   python src/predict_timm.py --config config/timm_baseline.yaml --experiment_id exp001 \
+#       --image_path /path/to/image.jpg --mask_path /path/to/mask.jpg
+
+model: timm_baseline
+
+data:
+  image_dir: data/image
+  mask_dir:  data/mask
+  label_csv: data/label.csv
+  output_dir: outputs
+
+timm:
+  # Supported architectures: efficientnet_b0 | resnet18 | vit_base_patch16_224 | samvit_base_patch16
+  model_name: efficientnet_b0
+  pretrained: true
+  dropout:    0.0
+  img_size:   224
+
+  use_mask_crop:   true   # crop to lesion bounding box before resize
+  mask_threshold:  127
+  mask_padding:    4
+  normalize:       true   # ImageNet mean/std normalisation
+
+  batch_size:      32
+  num_workers:     4
+  num_epochs:      50
+  learning_rate:   0.0001
+  weight_decay:    0.00001
+  label_smoothing: 0.0
+  patience:        7       # early stopping patience
+  lr_patience:     3       # ReduceLROnPlateau patience
+  lr_factor:       0.5
+  monitor_metric:  macro_f1
+  seed:            42
+
+  split:
+    train_size:   0.7
+    val_size:     0.1
+    test_size:    0.2
+    random_state: 42

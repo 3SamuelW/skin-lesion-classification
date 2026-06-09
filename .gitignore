@@ -1,0 +1,35 @@
+# Python
+__pycache__/
+*.py[cod]
+*.pyo
+*.pyd
+.Python
+
+# Virtual environments
+.venv/
+venv/
+env/
+.env
+
+# Jupyter
+.ipynb_checkpoints/
+*.ipynb
+
+# Experiment outputs (large, generated)
+outputs/
+
+# Data directories
+data/
+
+# Model weights
+*.pth
+*.pt
+*.joblib
+*.pkl
+
+# OS / editor
+.DS_Store
+Thumbs.db
+.idea/
+.vscode/
+*.swp
